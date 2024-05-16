@@ -26,7 +26,6 @@ return new class extends Migration
             $table->boolean('titulo_autenticado');
             $table->timestamps();
         });
-    
     }
 
     /**
