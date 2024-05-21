@@ -29,7 +29,7 @@ class Postulante extends Model
         'nacionalidad',
         'cargo_ocupa',
         'created_at',
-        'updated_at',
+        'updated_at',   
     ];
 
 
