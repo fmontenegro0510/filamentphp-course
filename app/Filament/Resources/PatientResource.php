@@ -31,9 +31,6 @@ class PatientResource extends Resource
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
                 Select::make('type')
                     ->options([
                         'cat' => 'Cat',
