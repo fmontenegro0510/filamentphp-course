@@ -2,27 +2,32 @@
 
 namespace App\Filament\Resources;
 
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Patient;
+use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use pxlrbt\FilamentExcel\Columns\Column;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use App\Filament\Resources\PatientResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\PatientResource\RelationManagers;
-
-
-use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
-use pxlrbt\FilamentExcel\Exports\ExcelExport;
-use pxlrbt\FilamentExcel\Columns\Column;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use App\Filament\Resources\PatientResource\RelationManagers;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+
+
 
 
 class PatientResource extends Resource
@@ -67,13 +72,32 @@ class PatientResource extends Resource
                             ->required(),
                     ])
                     ->required(),
+                    FileUpload::make('foto')
+                    ->image()
+                    ->imageResizeMode('cover')
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        null,
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
+                    ->avatar()
+                    ->moveFiles()
+     
+                    ->getUploadedFileNameForStorageUsing(
+                        fn (Get $get): string => $get('name') ."-". $get('owner_id').".png",
+                    )  
+
+                    ->directory('Pepo')               
             ]);
     }
-
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
+                ImageColumn::make('foto')
+                ->circular(),
                 TextColumn::make('name')
                 ->searchable(),
                 TextColumn::make('type'),

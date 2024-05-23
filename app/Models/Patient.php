@@ -10,6 +10,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Patient extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'date_of_birth',
+        'name',
+        'owner_id',
+        'type',
+        'fotos'
+    ];
     
     public function owner(): BelongsTo
     {
