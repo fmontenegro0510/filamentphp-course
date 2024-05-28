@@ -18,9 +18,9 @@ class CreatePatient extends CreateRecord
             Actions\Action::make('Borrar campos')
                     ->action(function () {
                         //para reiniciar todo el form
-                        // $this->form->fill();
+                         $this->form->fill();
                         //Para reiniciar campos especificos
-                        $this->reset('data.name', 'data.type', 'data.owner_id');
+                        ///$this->reset('data.name', 'data.type', 'data.owner_id');
                         //La otra opcion es haciendo uso de la opcion Set, tambien sirve para el caso de tener fomularios largos setear algunos valores para probar, sin ejecutar un caso de Testing
                         //$set('data.name', '',);
                         //$set('data.slug', '',);
