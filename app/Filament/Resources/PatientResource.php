@@ -9,9 +9,12 @@ use App\Models\Patient;
 use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Blade;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use pxlrbt\FilamentExcel\Columns\Column;
@@ -138,6 +141,17 @@ class PatientResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('pdf') 
+                ->label('PDF')
+                ->color('success')
+                ->action(function (Model $record) {
+                    return response()->streamDownload(function () use ($record) {
+                        // dd($record);
+                        echo Pdf::loadHtml(
+                            Blade::render('pdf', ['record' => $record])
+                        )->stream();
+                    }, $record->name . '.pdf');
+                }), 
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
