@@ -144,9 +144,9 @@ class PatientResource extends Resource
                 Tables\Actions\Action::make('pdf') 
                 ->label('PDF')
                 ->color('success')
+                ->icon('heroicon-c-arrow-down-tray')
                 ->action(function (Model $record) {
                     return response()->streamDownload(function () use ($record) {
-                        // dd($record);
                         echo Pdf::loadHtml(
                             Blade::render('pdf', ['record' => $record])
                         )->stream();

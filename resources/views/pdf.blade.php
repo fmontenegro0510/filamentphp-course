@@ -57,9 +57,5 @@
     </table>
 </figure>
 
-{{
-    
-}}
-
 <div>Fecha Creacion: {{ $record->created_at }}</div>
 <div>Fecha Actualizacion: {{ $record->updated_at }}</div>
