@@ -16,7 +16,8 @@ class Patient extends Model
         'name',
         'owner_id',
         'type',
-        'fotos'
+        'fotos',
+        'informe',
     ];
     
     public function owner(): BelongsTo

@@ -83,13 +83,33 @@ class PatientResource extends Resource
                         '1:1',
                     ])
                     ->avatar()
-                    ->moveFiles()
-     
+                    ->moveFiles()     
                     ->getUploadedFileNameForStorageUsing(
                         fn (Get $get): string => $get('name') ."-". $get('owner_id').".png",
-                    )  
+                    ) 
+                    ->directory('Pepo'),
+                    FileUpload::make('informe')
+                    ->directory('documentos-adjuntos')
+                    ->previewable(true)
+                    ->storeFiles(true)
+                    ->downloadable()
+                    ->imagePreviewHeight('250')
+                    ->loadingIndicatorPosition('left')
+                    ->panelAspectRatio('2:1')
+                    ->panelLayout('integrated')
+                    ->removeUploadedFileButtonPosition('right')
+                    ->uploadButtonPosition('left')
+                    ->uploadProgressIndicatorPosition('left')
+                    ->openable()
+                    ->acceptedFileTypes(['application/pdf'])
+                    ->visibility('public')
 
-                    ->directory('Pepo')               
+
+
+
+
+
+               
             ]);
     }
     public static function table(Table $table): Table
