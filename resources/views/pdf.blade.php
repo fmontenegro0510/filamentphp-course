@@ -1,73 +1,65 @@
+<h3>Ficha Postulante</h3>
+<p>&nbsp;</p>
 
+<img src="storage/{{ $record->foto }}" alt="{{$record->name}}" height="200" width="200" >
 
-{{-- {{dd($record)}} --}}
-{{-- <div class="id">
-    <img src="{{ asset($record->foto) }}" alt="Foto de {{$record->name}}" />    
-</div> --}}
-{{-- <img src="{{ asset($record->foto) }}" alt="Foto de {{$record->name}}" />     --}}
-{{-- <img src="'. public_path() .'{{$record->foto}}"> --}}
-{{-- <img src="data:image/png;base64, {!! base64_encode(file_get_contents('{{ $record->foto }}')) !!}" width="100" height="100"> --}}
-{{-- dd({{ public_path() .'/'. $record->foto}}); --}}
-{{-- dd({{url($record->foto)}}); --}}
-{{-- <img src="{{url($record->foto)}}" alt="Foto de {{$record->name}}" />     --}}
-{{-- dd('app/public/{{ $record->foto }}'); --}}
-{{-- <img src=" public_path('{{$record->foto}}') " style="width: 20%">
-<img src="app/public/{{ $record->foto }}" alt="" height="100" alt="Foto de {{$record->name}}"> --}}
+<p><u>Nombre y Apellido:</u><strong> </strong><i><strong>{{ $record->name }}</strong></i></p>
+<p><u>Fecha de Nacimiento:</u> <strong>{{ $record->date_of_birth }}</strong></p>
+<p><u>Tipo:</u> <strong>{{ $record->type }}</strong></p>
+<p>&nbsp;</p>
+<p><strong>Datos Adjuntos:&nbsp;</strong></p>
+<ul>
+    <li>
 
-{{-- <img src=" storage_path('app/public/'. {{$record->foto}})" style="width: 20%"> --}}
-{{-- {{dd(url('app/public/'. $record->foto))}}. --}}
-{{-- 
-<img src="" height="100" > --}}
+        @if (is_null($record->informe) )
+        <div> No contiene Datos Adjuntos</div>
+        @else
+        <div> 
+            <a href='{{$record->informe}}' download='{{$record->name}} - Informe'>Descargar Documento</a>
+        </div>
+        @endif
 
-{{-- {{dd(url('app/public/'. $record->foto))}} --}}
-{{-- {{dd(asset( $record->foto))}} --}}
-{{-- {{dd(URL::asset('app/public/'.$record->foto))}} --}}
+    </li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Dueño:</strong></p>
+<p style="margin-left:40px;"><strong>Nombre:</strong> {{ $record->owner->name }}</p>
+<p style="margin-left:40px;"><strong>Email:</strong>{{ $record->owner->email }}</p>
+<p style="margin-left:40px;"><strong>Telefono:</strong>{{ $record->owner->phone }}</p>
+<p style="margin-left:40px;">&nbsp;</p>
+<h3><strong>Tratamientos</strong></h3>
 
-{{-- <img src="{{URL::asset('app/public/'.$record->foto)}}" height="200" width="200"> --}}
-{{-- {{dd(public_path($record->foto))}} --}}
-{{-- <img src="{{ public_path($record->foto) }}" style="width: 20%"> --}}
-
-
-
-<div>ID: {{ $record->id }}</div>
-<div>Name: {{ $record->name }}</div>
-<div>Fecha de Nacimiento: {{ $record->date_of_birth }}</div>
-<div>Tipo: {{ $record->type }}</div>
-
-@if (is_null($record->informe) )
-<div> No contiene Datos Adjuntos</div>
-@else
-<div> 
-    <a href='{{$record->informe}}' download='{{$record->name}} - Informe'>Descargar Documento</a>
-</div>
-@endif
-<div>Dueño: {{ $record->owner->name }}</div>
-<div>Email: {{ $record->owner->email }}</div>
-<div>Phone: {{ $record->owner->phone }}</div>
-
-
-<div>
-    <table>
-        <tr>
-            <th>Descripcion</th>
-            <th>Notas</th>
-            <th>Precio</th>
-        </tr>
-        <tr class="items">
+<figure class="table">
+    <table style="border-color:hsl(0, 0%, 0%);border-style:solid;">
+        <thead>
+            <tr>
+                <th style="border-color:hsl(0, 0%, 30%);border-style:solid;">Descripcion</th>
+                <th style="border-color:hsl(0, 0%, 30%);border-style:solid;">Notas</th>
+                <th style="border-color:hsl(0, 0%, 30%);border-style:solid;">Precio</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach($record->treatments as $item)
-                <td>
-                    {{ $item['description'] }}
-                </td>
-                <td>
-                    {{ $item['price'] }}
-                </td>
-                <td>
-                    {{ $item['notes'] }}
-                </td>
-            @endforeach
-        </tr>
+                <tr class="items" style="border-color:hsl(0, 0%, 30%);border-style:solid;">
+                    <td style="border-color:hsl(0, 0%, 30%);border-style:solid;">
+                        {{ $item['description'] }}
+                    </td style="border-color:hsl(0, 0%, 30%);border-style:solid;">
+                    <td style="border-color:hsl(0, 0%, 30%);border-style:solid;">
+                        {{ $item['price'] }}
+                    </td style="border-color:hsl(0, 0%, 30%);border-style:solid;">
+                    <td style="border-color:hsl(0, 0%, 30%);border-style:solid;">
+                        {{ $item['notes'] }}
+                    </td>
+                </tr>
+            @endforeach            
+        </tbody>
     </table>
-</div>
+    </table>
+</figure>
+
+{{
+    
+}}
 
 <div>Fecha Creacion: {{ $record->created_at }}</div>
 <div>Fecha Actualizacion: {{ $record->updated_at }}</div>
