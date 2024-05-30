@@ -1,6 +1,7 @@
-<h3>Ficha Postulante</h3>
-<p>&nbsp;</p>
 
+<h3>Ficha Postulante</h3>
+
+<p>&nbsp;</p>
 <img src="storage/{{ $record->foto }}" alt="{{$record->name}}" height="200" width="200" >
 
 <p><u>Nombre y Apellido:</u><strong> </strong><i><strong>{{ $record->name }}</strong></i></p>
@@ -10,15 +11,13 @@
 <p><strong>Datos Adjuntos:&nbsp;</strong></p>
 <ul>
     <li>
-
         @if (is_null($record->informe) )
         <div> No contiene Datos Adjuntos</div>
         @else
         <div> 
-            <a href='{{$record->informe}}' download='{{$record->name}} - Informe'>Descargar Documento</a>
+            <a href='storage/{{$record->informe}}' target='_blank'>Ver Adjunto</a>
         </div>
         @endif
-
     </li>
 </ul>
 <p>&nbsp;</p>
@@ -56,6 +55,15 @@
     </table>
     </table>
 </figure>
+
+<? 
+
+$f = $record->created_at;
+$f = date("d-m-Y", strtotime($f));
+
+?>
+
+
 
 <div>Fecha Creacion: {{ $record->created_at }}</div>
 <div>Fecha Actualizacion: {{ $record->updated_at }}</div>
